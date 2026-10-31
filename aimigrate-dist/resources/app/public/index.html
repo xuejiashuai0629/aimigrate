@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>aimigrate</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>aimigrate</h1>
+      <p>AI 对话迁移引擎 · 支持本地 agent 与网页 chatbot 之间的历史迁移</p>
+    </div>
+    <button id="compressionApiButton">压缩引擎 API</button>
+  </header>
+
+  <main class="grid">
+    <section>
+      <label for="source">来源 AI</label>
+      <select id="source"></select>
+    </section>
+    <section>
+      <label for="target">目标 AI</label>
+      <select id="target"></select>
+    </section>
+    <section>
+      <label for="session">选择对话</label>
+      <select id="session" disabled><option>先选择来源 AI</option></select>
+      <button id="bindButton" class="bind-button" hidden>去绑定</button>
+    </section>
+    <section>
+      <label for="mode">迁移方式</label>
+      <select id="mode" disabled><option>先选择目标和对话</option></select>
+    </section>
+  </main>
+
+  <section class="target-config">
+    <label for="targetCwd" id="targetCwdLabel">目标工作目录（Codex / Claude Code 需要）</label>
+    <input id="targetCwd" placeholder="例如 E:\Desktop；网页 AI 来源迁移到本地 agent 时必填">
+    <p class="note" id="targetCwdHelp">这是目标 agent 的工作目录。例如 E:\Desktop。来源是豆包/DeepSeek 时必填；来源是 Codex/Claude Code 时可留空。</p>
+    <label class="checkbox">
+      <input id="updateIndex" type="checkbox" checked>
+      更新 Codex 会话列表索引（推荐，自动备份）
+    </label>
+    <div id="summaryEngineSection" hidden>
+      <label for="summaryEngine">摘要引擎</label>
+      <select id="summaryEngine">
+        <option value="offline">离线提取（免费，不烧 token）</option>
+        <option value="api">API 模型（消耗你配置的 API 额度）</option>
+      </select>
+      <p class="note" id="summaryEngineHelp">离线提取在本地免费生成摘要；API 模型会调用你配置的压缩引擎 API 生成更连贯的摘要，消耗对应额度。点击右上角"压缩引擎 API"配置。</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>报告 / 归档中心</h2>
+      <button id="refreshArtifactsButton">刷新</button>
+    </div>
+    <div class="artifact-grid">
+      <div>
+        <h3>迁移报告</h3>
+        <ul id="reportList" class="artifact-list"><li>加载中…</li></ul>
+      </div>
+      <div>
+        <h3>交接归档</h3>
+        <ul id="archiveList" class="artifact-list"><li>加载中…</li></ul>
+      </div>
+    </div>
+    <pre id="artifactViewer" class="artifact-viewer" hidden></pre>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>迁移预览</h2>
+      <div>
+        <button id="planButton" disabled>生成迁移方案</button>
+        <button id="executeButton" class="button-danger" hidden>执行迁移</button>
+      </div>
+    </div>
+    <div id="planSummary" class="plan-summary">
+      <div class="empty-state">选择来源、目标和对话后，生成迁移方案。</div>
+    </div>
+    <details class="tech-details">
+      <summary>技术详情</summary>
+      <pre id="output">等待选择。</pre>
+    </details>
+  </section>
+
+  <div id="apiModal" class="modal-backdrop" hidden>
+    <div class="modal">
+      <div class="modal-head">
+        <h2>压缩引擎 API</h2>
+        <button id="apiCloseButton" class="ghost">关闭</button>
+      </div>
+      <div class="api-grid">
+        <label>Base URL<input id="apiBaseUrl" placeholder="https://..."></label>
+        <label>API Key<input id="apiKey" type="password" placeholder="保存在本机浏览器中"></label>
+        <label>Model<input id="summaryModel" placeholder="例如 deepseek-v4-flash"></label>
+      </div>
+      <p class="note">配置只保存在这台电脑的浏览器 localStorage 中，不会上传到任何服务器。</p>
+      <div class="modal-actions">
+        <button id="apiClearButton" class="ghost">清除</button>
+        <button id="apiSaveButton">保存并收起</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "name": "aimigrate",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI 对话迁移引擎：本地 agent 与网页 chatbot 之间的高保真历史迁移。",
+  "main": "main.cjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "playwright-core": "^1.64.0"
+  },
+  "bin": {
+    "aimigrate": "src/cli.js"
+  },
+  "scripts": {
+    "test": "node test/history.test.js && node test/route-planner.test.js && node test/source-adapters.test.js && node test/claude-target.test.js && node test/codex-target.test.js && node test/summary.test.js && node test/active-window.test.js",
+    "gui": "node apps/gui/server.js",
+    "electron": "electron electron/main.cjs",
+    "build": "electron-builder --win dir"
+  },
+  "build": {
+    "appId": "com.aimigrate.app",
+    "productName": "aimigrate",
+    "files": [
+      "src/**/*",
+      "config/**/*",
+      "public/**/*",
+      "electron/**/*",
+      "node_modules/playwright-core/**/*"
+    ],
+    "win": {
+      "icon": "public/favicon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0"
+  }
+}

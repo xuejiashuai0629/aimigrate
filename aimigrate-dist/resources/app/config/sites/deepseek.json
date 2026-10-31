@@ -1,0 +1,11 @@
+{
+  "name": "deepseek",
+  "displayName": "DeepSeek",
+  "home": "https://chat.deepseek.com",
+  "selectors": {
+    "conversationItem": "a[href^='/a/chat/s/']",
+    "messageItem": "div.ds-message",
+    "assistantContent": ".ds-assistant-message-main-content",
+    "input": "textarea"
+  }
+}

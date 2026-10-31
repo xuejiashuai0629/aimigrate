@@ -1,0 +1,11 @@
+{
+  "name": "doubao",
+  "displayName": "豆包",
+  "home": "https://www.doubao.com/chat/",
+  "hrefFilter": "^/chat/[0-9]+$",
+  "selectors": {
+    "conversationItem": "a[href^='/chat/']",
+    "messageScroller": "[class*='v_list_scroller']",
+    "input": "[contenteditable='true']"
+  }
+}

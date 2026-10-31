@@ -1,0 +1,23 @@
+node_modules/
+dist/
+build/
+*.log
+.env
+.env.*
+.DS_Store
+Thumbs.db
+
+# Local migration exports should be user-initiated, never committed accidentally.
+out/
+exports/
+.aimigrate/
+.tmp/
+*.aimigrate.json
+
+aimigrate.exe
+sea-prep.blob
+
+.eb-cache/
+aimigrate-dist/
+*.exe-portable.zip
+aimigrate-portable.zip
